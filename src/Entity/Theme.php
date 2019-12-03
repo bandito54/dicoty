@@ -104,9 +104,9 @@ class Theme
     /**
      * @return Collection|Word[]
      */
-    public function getWord(): Collection
+    public function getWords(): Collection
     {
-        return $this->Word;
+        return $this->words;
     }
 
     public function addWord(Word $Word): self
@@ -132,10 +132,10 @@ class Theme
         return $this;
     }
 
-    public function getWords(): ?Word
+   /* public function getWords(): ?Word
     {
         return $this->words;
-    }
+    }*/
 
     public function setWords(Word $words): self
     {

@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+{% block title %}Main
+{% endblock %}
+
+{% block body %}
+
+
+    {# 
+        <br>
+        {% for theme in themes %}
+        
+        
+        
+        
+            {% for word in theme.getWords() %}
+                  <a href="">{{ word.text }}</a>
+                  <a href="">{{ word.getTranslation().text }}</a>
+            {% endfor %}
+        {% endfor %}
+        <br> #}
+
+
+    <div class="row m-1">
+
+        <div id="accordion" class="col-md-4">
+
+            {% for theme in themes %}
+                <div class="card">
+                    <div class="card-header p-0" id="heading{{theme.id}}">
+                        <h5 class="mb-0">
+                            <button
+                                class="btn btn-link" data-toggle="collapse" data-target="#{{theme.id}}" aria-expanded="true" aria-controls="{{theme.id}}">
+                                {# <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> #}
+                                {{theme.description}}
+                                <i class="fas fa-sort-down ml-5"></i>
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="{{theme.id}}" class="collapse show" aria-labelledby="heading{{theme.id}}" data-parent="#accordion">
+                        <div class="card-body">
+                            {% for word in theme.getWords() %}
+                                <ul>
+                                    <li>
+                                        <span>{{word.text}}</span>
+                                        ->
+                                        <span>{{word.getTranslation().text }}</span>
+                                    </li>
+                                </ul>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+            {# <div class="card">
+                            <div class="card-header p-0" id="headingTwo">
+                              <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  Collapsible Group Item #2
+                                <i class="fas fa-sort-down ml-5"></i>
+                                </button>
+                              </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                              <div class="card-body">
+                              String -> Chaîne de caractères
+                              </div>
+                            </div>
+                          </div>
+                        
+                          <div class="card">
+                            <div class="card-header p-0" id="headingThree">
+                              <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                  Collapsible Group Item #3
+                                 <i class="fas fa-sort-down ml-5"></i>
+                                </button>
+                              </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                              <div class="card-body">
+                              String -> Chaîne de caractères
+                              </div>
+                            </div>
+                          </div> #}
+
+
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="form-inline row">
+            <div class="form-group">
+                <label for="">
+                    <img src="assets/countries/france.svg" width="30px" alt="flag" class="m-3">
+                </label>
+                {{ form_start(formWord) }}
+                {{ form_widget(formWord.text) }}
+                {{ form_end(formWord) }}
+                <i class="fas fa-arrows-alt-h fa-3x p-3" style="vertical-align: middle;"></i>
+            </div>
+            <div class="form-group">
+                {{ form_start(formTranslat) }}
+                {{ form_widget(formTranslat.Tr_text) }}
+                {{ form_end(formTranslat) }}
+                <label for="">
+                    <img src="assets/countries/united-kingdom.svg" width="30px" alt="flag" class="m-3">
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{# LIOR CHAMLA 27:33 :) #}
+
+{% endblock %}

@@ -10,6 +10,11 @@
         {{ form_row(registrationForm.plainPassword) }}
         {{ form_row(registrationForm.agreeTerms) }}
 
+        <input type="checkbox" id="remember_me" name="_remember_me" checked/>
+        <label for="remember_me">Keep me logged in</label>
+
         <button class="btn">Register</button>
+
+        
     {{ form_end(registrationForm) }}
 {% endblock %}

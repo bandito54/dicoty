@@ -19,7 +19,7 @@ class Translation
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Text;
+    private $Tr_text;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Lang", inversedBy="translations")
@@ -43,14 +43,14 @@ class Translation
         return $this->id;
     }
 
-    public function getText(): ?string
+    public function getTrtext(): ?string
     {
-        return $this->Text;
+        return $this->Tr_text;
     }
 
-    public function setText(string $Text): self
+    public function setTrtext(string $Tr_text): self
     {
-        $this->Text = $Text;
+        $this->Tr_text = $Tr_text;
 
         return $this;
     }

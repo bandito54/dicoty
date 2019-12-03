@@ -52,7 +52,6 @@ class UserFixtures extends Fixture
                     $user->setEmail($faker->email());
                     $user->setPassword($faker->password());
                     $user->setPseudo($faker->name());
-                    $user->setBirthdate($faker->date());
                     $manager->persist($user);
 
                     for ($j = 0; $j < 3; $j++) {
@@ -60,7 +59,7 @@ class UserFixtures extends Fixture
                         $theme->setDescription($faker->paragraph());
                         $theme->setUserId($user);
                         $manager->persist($theme);
-                        
+
                         for ($k = 0; $k < 10; $k++) {
                             $word = new Word();
                             $tr = new Translation();

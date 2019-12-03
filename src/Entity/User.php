@@ -43,11 +43,6 @@ class User implements UserInterface
     private $Pseudo;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Birthdate;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $MotherTongue;
@@ -148,18 +143,6 @@ class User implements UserInterface
     public function setPseudo(string $Pseudo): self
     {
         $this->Pseudo = $Pseudo;
-
-        return $this;
-    }
-
-    public function getBirthdate(): ?string
-    {
-        return $this->Birthdate;
-    }
-
-    public function setBirthdate(string $Birthdate): self
-    {
-        $this->Birthdate = $Birthdate;
 
         return $this;
     }
