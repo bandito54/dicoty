@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Lang;
 use App\Entity\User;
 use App\Entity\Word;
 use App\Entity\Theme;
@@ -48,51 +49,48 @@ class HomeController extends AbstractController
 
                 foreach ($translation as $tr)
                 {
-                    $textTranslated = $tr->getText();
+                    $textTranslated = $tr->getTrText();
                 }
             }
         }
 
-        // $theme = new Theme();
-
-        // $form = $this->createForm(ThemeType::class, $theme);
-
-        $word = new Word();
-        $translat = new Translation();
-        $theme = new Theme();
+    $trlt = New Translation();
+    $form2 = $this->createForm(TranslationType::class, $trlt, ['userid'=>$user->getId()]);
+    $form2->handleRequest($request);
+    dump($form2->getData());
 
 
-            $form1 = $this->createFormBuilder($word)
-            ->add('Text', TextType::class)
-            ->getForm();
 
-            $form2 = $this->createFormBuilder($translat)
-            ->add('Tr_text', TextType::class)
-            ->getForm();
 
-            $form3 = $this->createFormBuilder($theme)
-            ->add('Description', TextType::class)
-            ->getForm();
+    if ($form2->isSubmitted() && $form2->isValid()) {
+        $mot = $form2['word']->getData();
+        $trad = $form2['Tr_text']->getData();
+        $description = $form2['theme']->getData();
 
-            $request->getPathInfo();
-        dump($request);
+        $translation = new Translation();
+        $description->setUserId($user);
 
-        if ($form1->isSubmitted() && $form1->isValid()) {
-            
-             $manager->persist($theme);
-             $manager->persist($word);
-             $manager->persist($translat);
-            
-             $manager->flush();
+         $translation->setTrText($trad);
+         $translation->setThemeId($description);
+         $translation->setWordId($mot);
+         $mot->setThemeId($description);
 
-            return $this->redirectToRoute("home");
-        }
+        
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($description);
+        $entityManager->persist($mot);
+        $entityManager->persist($translation);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('home');
+    }
+
 
         return $this->render('home/main.html.twig', [
             'controller_name' => 'HomeController',
-            'form1' => $form1->createView(),
             'form2' => $form2->createView(),
-            'form3' => $form3->createView(),
             'themes' => $themes,
 
         ]);

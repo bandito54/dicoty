@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Webmozart\Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -95,4 +96,22 @@ class Word
 
         return $this;
     }
+
+    // /**
+    //  * @Assert\Type(type="App\Entity\Theme")
+    //  * @Assert\Valid
+    //  */
+    // protected $theme;
+
+    // // ...
+
+    // public function getTheme()
+    // {
+    //     return $this->theme;
+    // }
+
+    // public function setTheme(Theme $theme = null)
+    // {
+    //     $this->theme = $theme;
+    // }
 }

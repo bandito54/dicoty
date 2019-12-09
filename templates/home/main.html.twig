@@ -43,7 +43,7 @@
                                     <li>
                                         <span>{{word.text}}</span>
                                         ->
-                                        <span>{{word.getTranslation().text }}</span>
+                                        <span>{{word.getTranslation().Trtext }}</span>
                                     </li>
                                 </ul>
                             {% endfor %}
@@ -92,54 +92,15 @@
 
     <div class="container" align="center">
 
-            {{ form_start(form1) }}
-            {{ form_start(form2) }}
-            {{ form_start(form3) }}
-
-
-            <div class="row justify-content-center">
-            {{ form_widget(form3.Description, {'attr': {'placeholder': "Type theme name", 'class':"rounded form-control col-sm-3 m-3"}}) }}
-            {# <span class="align-middle col-sm-12 m-3" >Or choose existing theme ! </span> #}
-            {# <ul>
-                  {% for theme in themes %}
-                  <li>{{theme.description}}</li>
-                  {% endfor %}
-            </ul> #}
-            {# <select class="form-control col-sm-3">
-              <option>Science</option>
-              <option>Big Big Big Big Big Big NAME OF THEME</option>
-              <option>I Love Pizzas</option>
-              <option>Marketing</option>
-              <option>IT</option>
-            </select>  #}
-
-            </div>
-
-
-            <div class="row justify-content-center">
-                    <img src="assets/countries/france.svg" width="30px" alt="flag" class="align-middle">
-                {{ form_widget(form1.Text, {'attr': {'placeholder': "Type Word To Translate", 'class':"rounded form-control col-sm-3 m-3"}}) }}
-
-
-                <i class="fas fa-arrows-alt-h fa-3x p-3" style="vertical-align: middle;"></i>
-
-                {{ form_widget(form2.Tr_text, {'attr': {'placeholder': "Type Translation", 'class':"rounded form-control col-sm-3 m-3"}}) }}
-                    <img src="assets/countries/united-kingdom.svg" width="30px" alt="flag" class="align-middle">
-
-
-            </div>
-
-
-            <div class="text-center">
-            <button type="submit"  class="btn btn-success btn-red center-block m-2 rounded">Add to Theme ! </button>
-            </div>
-            {{ form_end(form1) }}
-                        {{ form_end(form2) }}
-
-            {{ form_end(form3) }}
+    {# {{form(form1)}} #}
+    {{ form_start(form2) }}
+            {{ form_row(form2.word.Text) }}
+            {{ form_row(form2.theme.Description) }}
+            <button type="submit">SO VALIDE</button>
+        {{ form_end(form2) }}
 
     </div>
 
-    {# LIOR CHAMLA 39:08 :) #}
+    {# LIOR CHAMLA 39:08 :) #} 
 
 {% endblock %}

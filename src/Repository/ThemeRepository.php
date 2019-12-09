@@ -19,6 +19,38 @@ class ThemeRepository extends ServiceEntityRepository
         parent::__construct($registry, Theme::class);
     }
 
+
+     /**
+     * @return ThemeByUser[]
+     */
+    public function findThemeOfUser($userid)
+    {
+
+        $qb = $this->createQueryBuilder('y');
+        dump( $qb
+             ->select('y.Description')
+           
+            ->orderBy('y.Description', 'ASC')
+             ->getQuery()
+             ->execute()
+
+    );
+
+    return( $qb
+             ->select('y.Description')
+            // ->from(Theme::class,'y')
+            ->where('y.UserId = :uid')
+            ->setParameter('uid', $userid)
+            //  ->getQuery()
+            //  ->execute()
+
+    );
+
+    // return $this->createQueryBuilder('u')
+    //             ->groupBy('u.Description')
+    //             ->orderBy('u.Description', 'ASC');
+    }
+
     // /**
     //  * @return Theme[] Returns an array of Theme objects
     //  */

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -89,5 +90,43 @@ class Translation
         $this->ThemeId = $ThemeId;
 
         return $this;
+    }
+
+
+    /**
+     * @Assert\Type(type="App\Entity\Word")
+     * @Assert\Valid
+     */
+    protected $word;
+
+    // ...
+
+    public function getWord()
+    {
+        return $this->word;
+    }
+
+    public function setWord(Word $word = null)
+    {
+        $this->word = $word;
+    }
+
+    
+     /**
+     * @Assert\Type(type="App\Entity\Theme")
+     * @Assert\Valid
+     */
+    protected $theme;
+
+    // ...
+
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(Theme $theme = null)
+    {
+        $this->theme = $theme;
     }
 }
