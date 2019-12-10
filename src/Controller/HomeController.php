@@ -60,26 +60,49 @@ class HomeController extends AbstractController
     dump($form2->getData());
 
 
-
-
+ 
     if ($form2->isSubmitted() && $form2->isValid()) {
         $mot = $form2['word']->getData();
         $trad = $form2['Tr_text']->getData();
         $description = $form2['theme']->getData();
+        $letheme = $form2['ThemeId']->getData();
 
         $translation = new Translation();
-        $description->setUserId($user);
+
+        if (($letheme && $description) && ($description->getDescription() == $letheme->getDescription())) {
+            $description_existante = $letheme->getDescription();
+            $translation->setThemeId($letheme);
+            $mot->setThemeId($letheme);
+        }
+        if (($letheme && $description) && ($description->getDescription() != $letheme->getDescription())) {
+            exit();
+        }
+        else if ($letheme) {
+            $description_existante = $letheme->getDescription();
+            $translation->setThemeId($letheme);
+            $mot->setThemeId($letheme);
+        }
+        else if ($description ) {
+            $description->setUserId($user);
+            $mot->setThemeId($description);
+            $entityManager->persist($description);
+        }
+        else {
+            exit();
+        }
 
          $translation->setTrText($trad);
-         $translation->setThemeId($description);
          $translation->setWordId($mot);
-         $mot->setThemeId($description);
 
         
 
 
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($description);
+
+        // if (!$description_existante) {
+            
+        // }
+
         $entityManager->persist($mot);
         $entityManager->persist($translation);
         $entityManager->flush();

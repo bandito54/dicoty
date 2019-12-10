@@ -27,21 +27,31 @@ class ThemeRepository extends ServiceEntityRepository
     {
 
         $qb = $this->createQueryBuilder('y');
-        dump( $qb
-             ->select('y.Description')
+    //     dump( $qb
+    //          ->select('y.Description')
            
-            ->orderBy('y.Description', 'ASC')
-             ->getQuery()
-             ->execute()
+    //         ->orderBy('y.Description', 'ASC')
+    //          ->getQuery()
+    //          ->execute()
 
-    );
+    // );
 
-    return( $qb
+    dump($qb
              ->select('y.Description')
             // ->from(Theme::class,'y')
             ->where('y.UserId = :uid')
             ->setParameter('uid', $userid)
-            //  ->getQuery()
+             ->getQuery()
+              ->execute());
+
+    return( $qb
+            // ->select('y.Description')
+            // ->from(Theme::class,'y')
+            ->where('y.UserId = :uid')
+            ->setParameter('uid', $userid)
+            ->getQuery()
+            ->getArrayResult()
+            //   ->getQuery()
             //  ->execute()
 
     );

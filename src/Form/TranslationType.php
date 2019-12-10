@@ -6,13 +6,14 @@ use App\Entity\Theme;
 use App\Form\WordType;
 use App\Form\ThemeType;
 use App\Entity\Translation;
+use Doctrine\ORM\EntityRepository;
+use App\Repository\ThemeRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use App\Repository\ThemeRepository;
 
 class TranslationType extends AbstractType
 {
@@ -28,16 +29,19 @@ class TranslationType extends AbstractType
         $builder
             ->add('Tr_text', TextType::class)
             ->add('word', WordType::class)
-            ->add('theme', ThemeType::class)
+            ->add('theme', ThemeType::class, ['required' => false])
             ->add('ThemeId', EntityType::class, [
                 'class' => Theme::class,
-                'multiple' => true,
-                // 'choice_label' => 'Description',
-                //'choices' => $this->repo->findThemeOfUser($options['userid'])
+                'query_builder' => function (EntityRepository $er) use ($options) {
+                    return $er->createQueryBuilder('t')
+                        ->where('t.UserId = :uid')
+                        ->setParameter('uid', $options['userid']);
+                },
+                'multiple' => false,
+                'choice_label' => 'Description',
+                    'placeholder' => 'Choose an existing Theme',
 
-                'query_builder'     => function (ThemeRepository $er) use ( $options ) {
-                 return $er->findThemeOfUser($options['userid']);
-            }
+                'attr' => ['class' => 'form-control']
             ]);
     }
 
