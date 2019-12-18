@@ -4,103 +4,100 @@
 
 {% block body %}
 
+    <style>
+        body {
+            background: linear-gradient(#ff9642, #ed00ff);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
 
-    {# 
-            <br>
-            {% for theme in themes %}
-            
-            
-            
-            
-                {% for word in theme.getWords() %}
-                      <a href="">{{ word.text }}</a>
-                      <a href="">{{ word.getTranslation().text }}</a>
-                {% endfor %}
-            {% endfor %}
-            <br> #}
+        label {
+            color: white;
+        }
+
+        .mycard {
+            background: linear-gradient(#ed00ff, #ff9642);
+        }
+
+        #translate_it:hover {
+            background-color: transparent;
+            border: 2px solid #ff9642;
+            color: white;
+        }
+    </style>
 
 
-    <div class="row m-1">
-
-        <div id="accordion" class="col-md-4" style="float: left">
-
-            {% for theme in themes %}
-                <div class="card">
-                    <div class="card-header p-0" id="heading{{theme.id}}">
-                        <h5 class="mb-0">
-                            <button
-                                class="btn btn-link" data-toggle="collapse" data-target="#{{theme.id}}" aria-expanded="true" aria-controls="{{theme.id}}">
-                                {# <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> #}
-                                {{theme.description}}
-                                <i class="fas fa-sort-down ml-5"></i>
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="{{theme.id}}" class="collapse show" aria-labelledby="heading{{theme.id}}" data-parent="#accordion">
-                        <div class="card-body">
-                            {% for word in theme.getWords() %}
-                                <ul>
-                                    <li>
-                                        <span>{{word.text}}</span>
-                                        ->
-                                        <span>{{word.getTranslation().Trtext }}</span>
-                                    </li>
-                                </ul>
-                            {% endfor %}
+    <div class="container-fluid">
+        <div class="row">
+            <div id="accordion" class="col-lg-3">
+                {% for theme in themes %}
+                    {% if theme is defined %}
+                        <div class="card border-0">
+                            <div class="card-header p-0 mycard border-0" id="heading{{theme.id}}">
+                                <h5 class="mb-0">
+                                    <button
+                                        class="btn btn-link" data-toggle="collapse" data-target="#{{theme.id}}" aria-expanded="true" aria-controls="{{theme.id}}">
+                                        {# <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> #}
+                                        {{theme.description}}
+                                        <i class="fas fa-sort-down ml-5"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="{{theme.id}}" class="collapse show border-0" aria-labelledby="heading{{theme.id}}" data-parent="#accordion">
+                                <div class="card-body border-0">
+                                    {% for word in theme.getWords() %}
+                                        {% if word is defined %}
+                                            <ul class="list-group border-0">
+                                                <li class=" border-0 list-group-item">
+                                                    <span>{{word.text}}</span>
+                                                    <i class="fas fa-hand-point-right"></i>
+                                                    <span>{{word.getTranslation().Trtext }}</span>
+                                                </li>
+                                            </ul>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="col-lg-9">
+                {{ form_start(form2, {'attr': {'class': ''}}) }}
+                <div class="row m-4 justify-content-md-center">
+                    <div class="col-md-4">
+                        {{ form_row(form2.ThemeId, {'attr': {'class': 'form-control rounded'}, 'label': 'Pick existing theme..'}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form2.theme.Description, {'attr': {'class': 'form-control rounded'}, 'label': 'Or will you create a new one ?'}) }}
                     </div>
                 </div>
-            {% endfor %}
-
-
-            {# <div class="card">
-                                        <div class="card-header p-0" id="headingTwo">
-                                          <h5 class="mb-0">
-                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                              Collapsible Group Item #2
-                                            <i class="fas fa-sort-down ml-5"></i>
-                                            </button>
-                                          </h5>
-                                        </div>
-                                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                                          <div class="card-body">
-                                          String -> Chaîne de caractères
-                                          </div>
-                                        </div>
-                                      </div>
-                                    
-                                      <div class="card">
-                                        <div class="card-header p-0" id="headingThree">
-                                          <h5 class="mb-0">
-                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                              Collapsible Group Item #3
-                                             <i class="fas fa-sort-down ml-5"></i>
-                                            </button>
-                                          </h5>
-                                        </div>
-                                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                                          <div class="card-body">
-                                          String -> Chaîne de caractères
-                                          </div>
-                                        </div>
-                                      </div> #}
-
-
+                <div class="row m-4 justify-content-md-center">
+                    <div class="col-md-4">
+                        {{ form_row(form2.word.Text, {'attr': {'class': 'form-control rounded'}, 'label': 'Word To Translate'}) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form2.Tr_text, {'attr': {'class': 'form-control rounded'}, 'label': 'Translation'}) }}
+                    </div>
+                </div>
+                <div class="row m-4 justify-content-md-center">
+                    <div class="col-md-8 p-3 align-self-center text-center">
+                        <button class="rounded p-3" id="translate_it" type="submit">Go !</button>
+                    </div>
+                </div>
+                {{ form_end(form2) }}
+            </div>
         </div>
     </div>
 
-
-    <div class="container" align="center">
-
-    {# {{form(form1)}} #}
-    {{ form_start(form2) }}
-            {{ form_row(form2.word.Text) }}
-            {{ form_row(form2.theme.Description) }}
-            <button type="submit">SO VALIDE</button>
-        {{ form_end(form2) }}
-
-    </div>
-
-    {# LIOR CHAMLA 39:08 :) #} 
+    <script type="text/javascript">
+        $("#translation_ThemeId").change(function () {
+            if ($('#translation_ThemeId').val()) {
+                $('#translation_theme_Description').prop('disabled', true);
+            } else {
+                $('#translation_theme_Description').prop('disabled', false);
+            }
+        });
+    </script>
 
 {% endblock %}

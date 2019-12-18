@@ -27,10 +27,25 @@ class TranslationType extends AbstractType
     {
 
         $builder
-            ->add('Tr_text', TextType::class)
-            ->add('word', WordType::class)
-            ->add('theme', ThemeType::class, ['required' => false])
+            ->add('Tr_text', TextType::class, [
+                'attr' => ['class' => 'form-control'],
+                'label' => 'Translation'
+            ])
+
+            ->add('word', WordType::class, [
+                'attr' => ['class' => 'form-control'],
+                'label' => 'Word to translate'
+                ])
+
+            ->add('theme', ThemeType::class, [
+            'required' => false, 
+            'attr' => ['class' => 'form-control'],
+            'label' => 'Create a new theme ?', 
+            ])
+
             ->add('ThemeId', EntityType::class, [
+                'required' => false, 
+                'label' => 'Pick a theme',
                 'class' => Theme::class,
                 'query_builder' => function (EntityRepository $er) use ($options) {
                     return $er->createQueryBuilder('t')
@@ -39,7 +54,7 @@ class TranslationType extends AbstractType
                 },
                 'multiple' => false,
                 'choice_label' => 'Description',
-                    'placeholder' => 'Choose an existing Theme',
+                'placeholder' => 'Pick it !',
 
                 'attr' => ['class' => 'form-control']
             ]);

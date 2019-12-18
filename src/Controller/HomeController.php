@@ -42,14 +42,19 @@ class HomeController extends AbstractController
             $idt = $theme->getId();
             $description = $theme->getDescription();
             $words = $theme->getWords();
-            foreach ($words as $word)
-            {
-                $text = $word->getText();
-                $translation = $word->getTranslation();
-
-                foreach ($translation as $tr)
+            if ($words) {
+                foreach ($words as $word)
                 {
-                    $textTranslated = $tr->getTrText();
+                    $text = $word->getText();
+                    $translation = $word->getTranslation();
+                    
+                    if ($translation)
+                    {
+                        foreach ($translation as $tr)
+                        {
+                            $textTranslated = $tr->getTrText();
+                        }
+                    }
                 }
             }
         }
