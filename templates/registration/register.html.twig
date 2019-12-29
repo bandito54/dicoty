@@ -1,20 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <style>
+        body {
+            background: linear-gradient(#ff9642, #ed00ff);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
 
-        <input type="checkbox" id="remember_me" name="_remember_me" checked/>
-        <label for="remember_me">Keep me logged in</label>
+        label {
+            color: white;
+        }
 
-        <button class="btn">Register</button>
+        .mycard {
+            background: linear-gradient(#ed00ff, #ff9642);
+        }
 
-        
-    {{ form_end(registrationForm) }}
+        #valid:hover {
+            background-color: transparent;
+            border: 2px solid #ff9642;
+            color: white;
+        }
+
+        #loginform label {}
+    </style>
+
+
+    <div class="container-fluid">
+        {{ form_start(registrationForm) }}
+        <div class="row justify-content-md-center">
+            <div class="col-md-3 text-center">
+                <h1>Register</h1>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-3 p-2 text-center">
+                {{ form_row(registrationForm.email, {'attr': {'class': 'form-control rounded'}, 'label': 'Email'}) }}
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-3 p-2 text-center">
+                {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control rounded'}, 'label': 'Password'})}}
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-3 p-2 text-center">
+                {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-control rounded'}, 'label': 'I Agree terms'}) }}
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-3 p-2 text-center">
+                <label for="remember_me">Keep me logged in</label>
+                <input type="checkbox" class="form-control rounded" id="remember_me" name="_remember_me" checked/>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-3 p-2 text-center">
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-3 p-2 text-center">
+                <button class="btn btn-lg btn-primary rounded">Register</button>
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}
